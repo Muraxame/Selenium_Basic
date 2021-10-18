@@ -5,11 +5,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.File;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -40,6 +38,10 @@ public class Sample3Task {
 //         TODO:
 //         check how many element with class "test" there are on page (5)
 //         check that value of second button is "This is also a button"
+        int expectedNumberOfElements = 5;
+        int actualNumberOfElements = driver.findElements(By.className("text")).size();
+        assertEquals(expectedNumberOfElements, actualNumberOfElements);
+
     }
 
     @Test
@@ -48,12 +50,27 @@ public class Sample3Task {
 //         check that it is True that value of second button is
 //         "this is Also a Button" if you ignore Caps Locks
 //         fail with custom error message:
+        String button = driver.findElement(By.id("buttonId")).getText();
+        try {
+            assertTrue(button.equals("This is also a button"));
+            assertTrue(button.equalsIgnoreCase("this is Also a Button"));
+            assertTrue(false);
+        } catch (AssertionError e) {
+            System.err.println("This task will Fail!");
+            e.printStackTrace();
+        }
+
     }
 
     @Test
     public void assertFalseTask() throws Exception {
 //         TODO:
 //        check that it is False that value of second button is "This is a button"
+        String button2 = driver.findElement(By.name("randomButton1")).getText();
+        assertFalse(button2.equals("This is a button"));
+        assertFalse(button2.equals("Smthn idk"));
+        assertFalse(button2.contains("Smthn idk"));
+        assertFalse(false);
     }
 
     @Test
@@ -61,5 +78,10 @@ public class Sample3Task {
 //        TODO:
 //        check that none of items with class "test"
 //        contain number 190
+            boolean test1 = driver.findElements(By.className("test")).contains("190");
+        System.out.println("Result "+ test1);
+
+
+
     }
 }
