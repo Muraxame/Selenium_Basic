@@ -118,7 +118,7 @@ public class Sample7 {
 
         dateBox.click();
         WebElement dateWidget = driver.findElement(By.id("ui-datepicker-div"));
-//    go back 10 month in calendar on page
+
         for (int i = 0; i < 10; i++) {
             dateWidget.findElement(By.className("ui-datepicker-prev")).click();
         }
