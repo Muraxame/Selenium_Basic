@@ -81,16 +81,21 @@ public class Task1 {
 //        TODO
 //        enter a number between 50 and 100 digit in the input (square root of which doesn't have a remainder, e.g. 2 is square root of 4),
 //        then and press submit and check that correct no error is seen and check that square root is calculated correctly
-        double i = 100.00;
-        double a = Math.sqrt(i);
+        double i = 100;
         WebElement numb = driver.findElement(By.id("numb"));
         WebElement SubButton = driver.findElement(By.cssSelector("div.w3-container.w3-card-4 > button"));
         WebElement err = driver.findElement(By.className("error"));
-        numb.sendKeys(Double.toString(i));
+        numb.sendKeys(Integer.toString((int) i));
         SubButton.click();
         Alert alert = driver.switchTo().alert();
-        assertEquals("Square root of "+ i +" is "+ a + "0", alert.getText());
+        assertEquals("Square root of 100 is 10.00", alert.getText());
         alert.accept();
+        assertEquals("", err.getText());
+        double sqrt = Math.sqrt(i);
+        double number = (double) Math.round(sqrt * 100)/100;
+        String doubleZero = String.format("%.2f", number);
+        String newDoubleZero = doubleZero.replace(",",".");
+        System.out.println("Check for square root of 100: "+ newDoubleZero);
     }
 
     @Test
@@ -98,15 +103,18 @@ public class Task1 {
 //        TODO
 //        enter a number between 50 and 100 digit in the input (square root of which does have a remainder, e.g. 1.732.. is square root of 3) and press submit,
 //        then check that correct no error is seen and check that square root is calculated correctly
-        double i = 99.0;
-        double a = 9.95;
+        double i = 99;
         WebElement numb = driver.findElement(By.id("numb"));
         WebElement SubButton = driver.findElement(By.cssSelector("div.w3-container.w3-card-4 > button"));
-        WebElement err = driver.findElement(By.className("error"));
+        WebElement err = driver.findElement(By.id("ch1_error"));
         numb.sendKeys(Double.toString(i));
         SubButton.click();
         Alert alert = driver.switchTo().alert();
-        assertEquals("Square root of "+ i +" is "+ a, alert.getText());
+        assertEquals("Square root of 99.0 is 9.95", alert.getText());
         alert.accept();
+        assertEquals("", err.getText());
+        double sqrt = Math.sqrt(i);
+        double number = (double) Math.round(sqrt * 100)/100;
+        System.out.println("Check for square root of 99.0: "+ number);
     }
 }
